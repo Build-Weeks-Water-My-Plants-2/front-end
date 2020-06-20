@@ -1,9 +1,14 @@
 import React from 'react';
 
 const EditPlant = props => {
+  
+  const handleSubmit = e => {
+    e.preventDefault()
+  }
+
   return (
     <div>
-      <img src={props.plant.avatar_url}></img>
+      <img></img>
       <button>Update Photo</button>
       <form onSubmit={handleSubmit}>
         <label htmlFor='plant'>
