@@ -1,10 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import * as yup from 'yup';
+
+const formSchema = yup.object().shape({
+  username: yup.string().required(),
+  password: yup.string().required()
+})
 
 const Login = props => {
   const [login, setLogin] = useState({
     username: '',
     password: ''
   })
+
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    formSchema.isValid(login).then(valid => {
+      setButtonDisabled(!valid)
+    })
+  }, [login])
 
   const handleChange = e => {
     setLogin({...login, [e.target.name]: e.target.value})
@@ -33,7 +47,7 @@ const Login = props => {
           Password
           <input id='password' type='password' name='password' value={login.password} onChange={handleChange} />
         </label>
-        <button type='submit'>Next</button>
+        <button type='submit' disabled={buttonDisabled}>Next</button>
       </form>
     </div>
   )
