@@ -3,7 +3,7 @@ import React from 'react';
 const EditUser = props => {
   const handleChange = e => {
     //Not sure of the flow here just acting as if a setState for user will be passed in to the component
-    props.setUser({...user, [e.target.name]: e.target.value}) //TBD
+    //props.setUser({...user, [e.target.name]: e.target.value})
   }
 
   const handleSubmit = e => {
@@ -13,9 +13,9 @@ const EditUser = props => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-      <label htmlFor='userName'>
+      <label htmlFor='username'>
           Username
-          <input id='userName' type='text' name='userName' value={props.user.userName} onChange={handleChange} />
+          <input id='username' type='text' name='username' value={props.user.username} onChange={handleChange} />
         </label>
         <label htmlFor='tel'>
           Phone Number

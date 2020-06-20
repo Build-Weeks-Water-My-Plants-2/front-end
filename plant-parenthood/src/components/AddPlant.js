@@ -11,19 +11,19 @@ const AddPlant = props => {
       <h3>Now, let's add your first plant</h3>
       <form onSubmit={handleSubmit}>
       <label htmlFor='radio1'>
-          <input id='radio1' type='radio' />
+          <input id='radio1' type='radio' name='img' />
           <img src='#' />
         </label>
         <label htmlFor='radio2'>
-          <input id='radio2' type='radio' />
+          <input id='radio2' type='radio' name='img' />
           <img src='#' />
         </label>
         <label htmlFor='radio3'>
-          <input id='radio3' type='radio' />
+          <input id='radio3' type='radio' name='img' />
           <img src='#' />
         </label>
         <label htmlFor='radio4'>
-          <input id='radio4' type='radio' />
+          <input id='radio4' type='radio' name='img' />
           <img src='#' />
         </label>
         <label htmlFor='plant'>

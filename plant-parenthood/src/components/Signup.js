@@ -10,10 +10,18 @@ const Signup = props => {
 
   const handleChange = e => {
     setNewUser({...newUser, [e.target.name]: e.target.value})
+    console.log(newUser)
   }
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    setNewUser({
+      username: '',
+    password: '',
+    pw_confirm: '',
+    phone_number: '',
+    })
   }
 
   return (
@@ -21,9 +29,9 @@ const Signup = props => {
       <h3>Lets get Started!</h3>
       <h3>Create your account</h3>
       <form onSubmit={handleSubmit}>
-      <label htmlFor='userName'>
+      <label htmlFor='username'>
           Username
-          <input id='userName' type='text' name='userName' value={newUser.userName} onChange={handleChange} />
+          <input id='username' type='text' name='username' value={newUser.username} onChange={handleChange} />
         </label>
         <label htmlFor='tel'>
           Phone Number
