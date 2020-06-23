@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
+import {Container, Active, Error, Input, Form, Label, Button, Title, LightTitle} from '../styles/forms';
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Must choose a username'),
@@ -69,33 +70,30 @@ const Signup = props => {
   }
 
   return (
-    <div>
-      <h3>Lets get Started!</h3>
-      <h3>Create your account</h3>
-      <form onSubmit={handleSubmit}>
-      <label htmlFor='username'>
-          Username
-          <input id='username' type='text' name='username' value={newUser.username} onChange={handleChange} />
-          {errors.username.length > 0 ? (<p className='error'>{errors.username}</p>) : null}
-        </label>
-        <label htmlFor='tel'>
-          Phone Number
-          <input id='tel' type='tel' name='phone_number' value={newUser.phone_number} onChange={handleChange} />
-          {errors.phone_number.length > 0 ? (<p className='error'>{errors.phone_number}</p>) : null}
-        </label>
-        <label htmlFor='password'>
-          Password
-          <input id='password' type='password' name='password' value={newUser.password} onChange={handleChange} />
-          {errors.password.length > 0 ? (<p className='error'>{errors.password}</p>) : null}
-        </label>
-        <label htmlFor='pwConfirm'>
-          Confirm Password
-          <input id='pwConfirm' type='password' name='pw_confirm' value={newUser.pw_confirm} onChange={handleChange} />
-          {errors.pw_confirm.length > 0 ? (<p className='error'>{errors.pw_confirm}</p>) : null}
-        </label>
-        <button type='submit' disabled={buttonDisabled}>Next</button>
-      </form>
-    </div>
+    <Container>
+      <div>
+        <Title>Lets get Started!</Title>
+        <LightTitle>Create your account</LightTitle>
+      </div>
+      <Form onSubmit={handleSubmit}>
+        <Label htmlFor='username'>Username</Label>
+        <Input id='username' type='text' name='username' value={newUser.username} onChange={handleChange} />
+        {errors.username.length > 0 ? (<Error>{errors.username}</Error>) : null}
+        
+        <Label htmlFor='tel'>Phone Number</Label>
+        <Input id='tel' type='tel' name='phone_number' value={newUser.phone_number} onChange={handleChange} />
+        {errors.phone_number.length > 0 ? (<Error>{errors.phone_number}</Error>) : null}
+        
+        <Label htmlFor='password'>Password</Label>
+        <Input id='password' type='password' name='password' value={newUser.password} onChange={handleChange} />
+        {errors.password.length > 0 ? (<Error>{errors.password}</Error>) : null}
+        
+        <Label htmlFor='pwConfirm'>Confirm Password</Label>
+        <Input id='pwConfirm' type='password' name='pw_confirm' value={newUser.pw_confirm} onChange={handleChange} />
+        {errors.pw_confirm.length > 0 ? (<Error>{errors.pw_confirm}</Error>) : null}
+        {buttonDisabled === true ? (<Button type='submit' disabled={buttonDisabled}>Next</Button>) : <Active type='submit' disabled={buttonDisabled}>Next</Active> }
+      </Form>
+    </Container>
   )
 }
 
