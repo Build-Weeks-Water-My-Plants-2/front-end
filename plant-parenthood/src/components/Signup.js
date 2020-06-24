@@ -11,10 +11,16 @@ const formSchema = yup.object().shape({
 })
 
 const Signup = props => {
+  const [newUserVal, setNewUserVal] = useState({
+    username: '',
+    password: '',
+    pw_confirm: '',
+    phone_number: '',
+  })
+
   const [newUser, setNewUser] = useState({
     username: '',
     password: '',
-    pw_confirm: '', //add to state, validate it matches password, success: remove pw_confirm and pass on newUser, catch: throw error?
     phone_number: '',
   })
 
@@ -28,10 +34,10 @@ const Signup = props => {
   });
 
   useEffect(() => {
-    formSchema.isValid(newUser).then(valid => {
+    formSchema.isValid(newUserVal).then(valid => {
       setButtonDisabled(!valid)
     })
-  }, [newUser])
+  }, [newUserVal])
 
   const validateChange = e => {
     yup
@@ -54,21 +60,42 @@ const Signup = props => {
   const handleChange = e => {
     e.persist();
     validateChange(e);
-    setNewUser({...newUser, [e.target.name]: e.target.value})
-    console.log(newUser)
+    setNewUserVal({...newUserVal, [e.target.name]: e.target.value});
+    if (e.target.name !== 'pw_confirm') {
+      setNewUser({...newUser, [e.target.name]: e.target.value})
+    } 
   }
 
   const handleSubmit = e => {
     e.preventDefault()
-    
-    setNewUser({
-      username: '',
-    password: '',
-    pw_confirm: '',
-    phone_number: '',
-    })
-  }
 
+    if(newUser.password === newUserVal.pw_confirm) {
+      axios.post('https://stark-sierra-74070.herokuapp.com/auth/register', newUser).then(res => {
+        console.log(res)
+        console.log(newUser)
+     
+        setNewUser({
+          username: '',
+          password: '',
+          phone_number: '',
+        })
+
+        setNewUserVal({
+          username: '',
+          password: '',
+          pw_confirm: '',
+          phone_number: ''
+        })
+      })
+      .catch(err => {
+        console.log('error', err)
+        console.log(newUser)
+      })
+    } else {
+      setErrors({...errors, pw_confirm: 'Passwords must match'})
+    }
+  }  
+    
   return (
     <Container>
       <div>
@@ -77,19 +104,19 @@ const Signup = props => {
       </div>
       <Form onSubmit={handleSubmit}>
         <Label htmlFor='username'>Username</Label>
-        <Input id='username' type='text' name='username' value={newUser.username} onChange={handleChange} />
+        <Input id='username' type='text' name='username' value={newUserVal.username} onChange={handleChange} />
         {errors.username.length > 0 ? (<Error>{errors.username}</Error>) : null}
         
         <Label htmlFor='tel'>Phone Number</Label>
-        <Input id='tel' type='tel' name='phone_number' value={newUser.phone_number} onChange={handleChange} />
+        <Input id='tel' type='tel' name='phone_number' value={newUserVal.phone_number} onChange={handleChange} />
         {errors.phone_number.length > 0 ? (<Error>{errors.phone_number}</Error>) : null}
         
         <Label htmlFor='password'>Password</Label>
-        <Input id='password' type='password' name='password' value={newUser.password} onChange={handleChange} />
+        <Input id='password' type='password' name='password' value={newUserVal.password} onChange={handleChange} />
         {errors.password.length > 0 ? (<Error>{errors.password}</Error>) : null}
         
         <Label htmlFor='pwConfirm'>Confirm Password</Label>
-        <Input id='pwConfirm' type='password' name='pw_confirm' value={newUser.pw_confirm} onChange={handleChange} />
+        <Input id='pwConfirm' type='password' name='pw_confirm' value={newUserVal.pw_confirm} onChange={handleChange} />
         {errors.pw_confirm.length > 0 ? (<Error>{errors.pw_confirm}</Error>) : null}
         {buttonDisabled === true ? (<Button type='submit' disabled={buttonDisabled}>Next</Button>) : <Active type='submit' disabled={buttonDisabled}>Next</Active> }
       </Form>
