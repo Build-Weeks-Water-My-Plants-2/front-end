@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
-import {Container, Form, Label, Input, Title, LightTitle, Button, Active, Error} from '../styles/forms'
+import {Container, Form, Label, Input, Title, LightTitle, Button, Active, Error} from '../styles/forms';
+import axios from 'axios';
 
 const formSchema = yup.object().shape({
   username: yup.string().required('Must add a username'),
@@ -48,11 +49,18 @@ const Login = props => {
     e.persist();
     validateChange(e);
     setLogin({...login, [e.target.name]: e.target.value})
-    console.log(login)
   }
 
   const handleSubmit = e => {
     e.preventDefault()
+
+    axios.post('https://stark-sierra-74070.herokuapp.com/auth/login', login).then(res => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+      console.log(login)
+    })
 
     setLogin({
       username: '',

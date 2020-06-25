@@ -84,7 +84,7 @@ const AddPlant = props => {
         </label>
         <label htmlFor='radio4'>
           <input id='radio4' type='radio' name='avatar_url' onChange={handleChange} />
-          <i class="fa fa-camera"></i>
+          <i className="fa fa-camera"></i>
         </label>
         {errors.avatar_url.length > 0 ? (<Error>{errors.avatar_url}</Error>) : null}
       </ImgContainer>
