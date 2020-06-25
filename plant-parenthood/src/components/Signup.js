@@ -74,22 +74,10 @@ const Signup = props => {
 
     if(newUser.password === newUserVal.pw_confirm) {
       axios.post(' https://stark-sierra-74070.herokuapp.com/auth/register', newUser).then(res => {
-        console.log(res)
-     
-        setNewUser({
-          username: '',
-          password: '',
-          phone_number: '',
+        axios.post('https://stark-sierra-74070.herokuapp.com/auth/login', newUser).then(res => {
+          console.log(res)
+          history.push('/addplant')
         })
-
-        setNewUserVal({
-          username: '',
-          password: '',
-          pw_confirm: '',
-          phone_number: ''
-        })
-      }).then(res => {
-        history.push('/addplant')
       })
       .catch(err => {
         console.log('error', err)

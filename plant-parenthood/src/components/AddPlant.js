@@ -76,11 +76,11 @@ const AddPlant = props => {
         </label>
         <label htmlFor='radio2'>
           <input id='radio2' type='radio' name='avatar_url' value={flower} onChange={handleChange} />
-          <img src={flower} />
+          <img src={flower} alt='leafy plant with small flowers' />
         </label>
         <label htmlFor='radio3'>
           <input id='radio3' type='radio' name='avatar_url' value={succulent} onChange={handleChange} />
-          <img src={succulent} />
+          <img src={succulent} alt='Close up of a succulent plant' />
         </label>
         <label htmlFor='radio4'>
           <input id='radio4' type='radio' name='avatar_url' onChange={handleChange} />
