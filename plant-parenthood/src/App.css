@@ -11,7 +11,8 @@
 
 .App {
   background-image: url('./assets/bg-leaf.png');
-  height: 100vh;
+  min-height: 100vh;
+  max-height: 100%;
   width: 100vw;
   background-repeat: no-repeat;
   background-size: cover;

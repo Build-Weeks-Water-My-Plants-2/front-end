@@ -60,6 +60,6 @@ export const Error = styled.p`
 export const ImgContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 70%;
+  width: 250px;
   margin: auto;
 `
