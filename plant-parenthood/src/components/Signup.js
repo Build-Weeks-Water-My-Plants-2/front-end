@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
 import axios from 'axios';
 import {Container, Active, Error, Input, Form, Label, Button, Title, LightTitle} from '../styles/forms';
+import {useHistory} from 'react-router-dom';
 
 const formSchema = yup.object().shape({
     username: yup.string().required('Must choose a username'),
@@ -11,6 +12,8 @@ const formSchema = yup.object().shape({
 })
 
 const Signup = props => {
+  const history = useHistory();
+
   const [newUserVal, setNewUserVal] = useState({
     username: '',
     password: '',
@@ -86,6 +89,8 @@ const Signup = props => {
           pw_confirm: '',
           phone_number: ''
         })
+
+        history.push('/addplant')
       })
       .catch(err => {
         console.log('error', err)
@@ -118,7 +123,7 @@ const Signup = props => {
         <Label htmlFor='pwConfirm'>Confirm Password</Label>
         <Input id='pwConfirm' type='password' name='pw_confirm' value={newUserVal.pw_confirm} onChange={handleChange} />
         {errors.pw_confirm.length > 0 ? (<Error>{errors.pw_confirm}</Error>) : null}
-        {buttonDisabled === true ? (<Button type='submit' disabled={buttonDisabled}>Next</Button>) : <Active type='submit' disabled={buttonDisabled}>Next</Active> }
+        {buttonDisabled === true ? (<Button type='submit' disabled={buttonDisabled}>Next</Button>) : (<Active type='submit' disabled={buttonDisabled}>Next</Active>) }
       </Form>
     </Container>
   )
