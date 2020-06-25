@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import * as yup from 'yup';
 import {Container, Form, Label, Input, Title, LightTitle, Button, Active, Error} from '../styles/forms';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
 const formSchema = yup.object().shape({
   username: yup.string().required('Must add a username'),
@@ -9,6 +10,8 @@ const formSchema = yup.object().shape({
 })
 
 const Login = props => {
+  const history = useHistory();
+
   const [login, setLogin] = useState({
     username: '',
     password: ''
@@ -17,6 +20,7 @@ const Login = props => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const [errors, setErrors] = useState({
+    typo: '',
     username: '',
     password: ''
   })
@@ -56,15 +60,13 @@ const Login = props => {
 
     axios.post('https://stark-sierra-74070.herokuapp.com/auth/login', login).then(res => {
       console.log(res)
+      props.setCurrentUser(res)
+    }).then((res) => {
+      history.push(``)
     })
     .catch(err => {
       console.log(err)
-      console.log(login)
-    })
-
-    setLogin({
-      username: '',
-      password: ''
+      setErrors({...errors, typo: 'The username and password provided does not match our records'})
     })
   }
 
@@ -80,6 +82,7 @@ const Login = props => {
         <Label htmlFor='password'>Password</Label>
         <Input id='password' type='password' name='password' value={login.password} onChange={handleChange} />
         {errors.password.length > 0 ? (<Error>{errors.password}</Error>) : null}
+        {errors.typo.length > 0 ? (<Error>{errors.typo}</Error>) : null}
         
         {buttonDisabled === true ? (<Button type='submit' disabled={buttonDisabled}>Next</Button>) : (<Active type='submit' disabled={buttonDisabled}>Next</Active>) }
       </Form>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Route, Switch} from 'react-router-dom';
 import "./App.css";
 import Nav from './components/Nav';
@@ -7,19 +7,21 @@ import Login from './components/Login';
 import AddPlant from './components/AddPlant';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState()
+
   return (
     <div className="App">
       <Nav />
       <Switch>
         
         <Route path='/login' >
-          <Login />
+          <Login setCurrentUser={setCurrentUser} />
         </Route>
         <Route path='/addplant'>
-          <AddPlant />
+          <AddPlant currentUser={currentUser} />
         </Route>
         <Route path='/' >
-          <Signup />
+          <Signup setCurrentUser={setCurrentUser} />
         </Route>
       </Switch>
     </div>
