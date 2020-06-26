@@ -97,21 +97,21 @@ const Signup = props => {
       </div>
       <Form onSubmit={handleSubmit}>
         <Label htmlFor='username'>Username</Label>
-        <Input id='username' type='text' name='username' value={newUserVal.username} onChange={handleChange} />
+        <Input id='username' data-cy='username' type='text' name='username' value={newUserVal.username} onChange={handleChange} />
         {errors.username.length > 0 ? (<Error>{errors.username}</Error>) : null}
         
         <Label htmlFor='tel'>Phone Number</Label>
-        <Input id='tel' type='tel' name='phone_number' value={newUserVal.phone_number} onChange={handleChange} />
+        <Input id='tel' data-cy='phone' type='tel' name='phone_number' value={newUserVal.phone_number} onChange={handleChange} />
         {errors.phone_number.length > 0 ? (<Error>{errors.phone_number}</Error>) : null}
         
         <Label htmlFor='password'>Password</Label>
-        <Input id='password' type='password' name='password' value={newUserVal.password} onChange={handleChange} />
+        <Input id='password' data-cy='pass' type='password' name='password' value={newUserVal.password} onChange={handleChange} />
         {errors.password.length > 0 ? (<Error>{errors.password}</Error>) : null}
         
         <Label htmlFor='pwConfirm'>Confirm Password</Label>
-        <Input id='pwConfirm' type='password' name='pw_confirm' value={newUserVal.pw_confirm} onChange={handleChange} />
+        <Input id='pwConfirm' data-cy='confirm' type='password' name='pw_confirm' value={newUserVal.pw_confirm} onChange={handleChange} />
         {errors.pw_confirm.length > 0 ? (<Error>{errors.pw_confirm}</Error>) : null}
-        {buttonDisabled === true ? (<Button type='submit' disabled={buttonDisabled}>Next</Button>) : (<Active type='submit' disabled={buttonDisabled}>Next</Active>) }
+        {buttonDisabled === true ? (<Button type='submit' disabled={buttonDisabled}>Next</Button>) : (<Active data-cy='btn' type='submit' disabled={buttonDisabled}>Next</Active>) }
       </Form>
     </Container>
   )

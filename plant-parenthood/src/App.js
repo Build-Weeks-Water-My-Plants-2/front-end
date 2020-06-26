@@ -9,7 +9,13 @@ import Plants from './components/Plants';
 
 function App() {
   const [currentUser, setCurrentUser] = useState()
+  
   const [plants, setPlants] = useState([]);
+  
+  const [login, setLogin] = useState({
+    username: '',
+    password: ''
+  });
 
   return (
     <div className="App">
@@ -17,16 +23,16 @@ function App() {
       <Switch>
         
         <Route path='/login' >
-          <Login setCurrentUser={setCurrentUser} currentUser={currentUser} setPlants={setPlants} />
+          <Login setCurrentUser={setCurrentUser} currentUser={currentUser} setPlants={setPlants} login={login} setLogin={setLogin} />
         </Route>
         <Route path='/plants/:user' >
-          <Plants currentUser={currentUser} plants={plants} setPlants={setPlants} />
+          <Plants currentUser={currentUser} plants={plants} setPlants={setPlants} login={login} />
         </Route>
         <Route path='/addplant'>
-          <AddPlant currentUser={currentUser} setPlants={setPlants} />
+          <AddPlant currentUser={currentUser} setPlants={setPlants} login={login} />
         </Route>
         <Route path='/' >
-          <Signup setCurrentUser={setCurrentUser} />
+          <Signup setCurrentUser={setCurrentUser} login={login} />
         </Route>
       </Switch>
     </div>

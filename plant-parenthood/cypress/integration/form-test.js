@@ -1,0 +1,30 @@
+describe('Testing signup form', function() {
+  beforeEach(function(){
+    cy.visit('http://Localhost:3000/')
+  });
+
+  it('fills sign up form, fills first plant form', function() {
+    cy.get('[data-cy=username]')
+      .type('Ryan55')
+      .should('have.value', 'Ryan55')
+    cy.get('[data-cy=phone]')
+      .type('5555555')
+      .should('have.value', '5555555')
+    cy.get('[data-cy=pass]')
+      .type('password')
+      .should('have.value', 'password')
+    cy.get('[data-cy=confirm]')
+      .type('password')
+      .should('have.value', 'password')
+    cy.get('[data-cy=btn]')
+      .click()
+    cy.get('[data-cy=1]').click()
+    cy.get('[data-cy=nickname]')
+      .type('nickname')
+      .should('have.value', 'nickname')
+    cy.get('[data-cy=maint]')
+      .select('medium')
+      .should('have.value', 'medium')
+    cy.get('[data-cy=btn]').click()
+  })
+})

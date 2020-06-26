@@ -5,6 +5,7 @@ import succulent from '../assets/tcgMBsW4zlU.png';
 import * as yup from 'yup';
 import {Container, ImgContainer, Active, Error, Input, Form, Label, Button, Title, LightTitle} from '../styles/forms';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
 const formSchema = yup.object().shape({
   species: yup.string(),
@@ -14,6 +15,8 @@ const formSchema = yup.object().shape({
 })
 
 const AddPlant = props => {
+  const history = useHistory();
+
   const [newPlant, setNewPlant] = useState({
     species: '',
     nickname: '',
@@ -77,7 +80,7 @@ const AddPlant = props => {
         }
       }).then(res => {
         props.setPlants(res.data)
-        
+        history.push(`plants/${props.login.username}`)
       })
     })
   }  
@@ -86,18 +89,19 @@ const AddPlant = props => {
     <Container>
       <Title>Looking Good!</Title>
       <LightTitle>Now, let's add your first plant</LightTitle>
+      
       <Form onSubmit={handleSubmit}>
       <ImgContainer>
         <label htmlFor='radio1'>
-          <input id='radio1' type='radio' name='avatar_url' value={leafy} onChange={handleChange} />
+          <input id='radio1' data-cy='1' type='radio' name='avatar_url' value={leafy} onChange={handleChange} />
           <img src={leafy} alt="close up of a succulent" />
         </label>
         <label htmlFor='radio2'>
-          <input id='radio2' type='radio' name='avatar_url' value={flower} onChange={handleChange} />
+          <input id='radio2' data-cy='2' type='radio' name='avatar_url' value={flower} onChange={handleChange} />
           <img src={flower} alt='leafy plant with small flowers' />
         </label>
         <label htmlFor='radio3'>
-          <input id='radio3' type='radio' name='avatar_url' value={succulent} onChange={handleChange} />
+          <input id='radio3' data-cy='3' type='radio' name='avatar_url' value={succulent} onChange={handleChange} />
           <img src={succulent} alt='Close up of a succulent plant' />
         </label>
         <label htmlFor='radio4'>
@@ -110,13 +114,13 @@ const AddPlant = props => {
         <Label htmlFor='plant'>
           Plant Name
         </Label>
-        <Input id='plant' type='text' name='nickname' onChange={handleChange} />
+        <Input id='plant' data-cy='nickname' type='text' name='nickname' onChange={handleChange} />
         {errors.nickname.length > 0 ? (<Error>{errors.nickname}</Error>) : null}
 
         <Label htmlFor='maint'>
           Maintenance
         </Label>
-        <select id='maint' name='maintenance' onChange={handleChange}>
+        <select id='maint' data-cy='maint' name='maintenance' onChange={handleChange}>
           <option></option>
           <option value='low'>Low</option>
           <option value='medium'>Medium</option>
@@ -129,7 +133,7 @@ const AddPlant = props => {
         </Label>
         <Input id='species' type='text' name='species' onChange={handleChange} />
 
-        {buttonDisabled === true ? (<Button type='submit' disabled={buttonDisabled}>Next</Button>) : <Active type='submit' disabled={buttonDisabled}>Next</Active> }
+        {buttonDisabled === true ? (<Button type='submit' disabled={buttonDisabled}>Next</Button>) : <Active type='submit' data-cy='btn' disabled={buttonDisabled}>Next</Active> }
       </Form>
       <button>Skip</button>
     </Container>

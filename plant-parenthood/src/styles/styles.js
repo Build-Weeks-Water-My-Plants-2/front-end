@@ -28,4 +28,9 @@ export const List = styled.div`
   width: 50vw;
   display: flex;
   flex-flow: column wrap;
+  background: #C4C4C4;
+  flex-grow: 5
+`
+export const Container = styled.div`
+  display: flex;
 `
