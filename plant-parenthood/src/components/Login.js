@@ -12,11 +12,6 @@ const formSchema = yup.object().shape({
 const Login = props => {
   const history = useHistory();
 
-  const [login, setLogin] = useState({
-    username: '',
-    password: ''
-  })
-
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const [errors, setErrors] = useState({
@@ -26,11 +21,11 @@ const Login = props => {
   })
 
   useEffect(() => {
-    formSchema.isValid(login).then(valid => {
+    formSchema.isValid(props.login).then(valid => {
       setButtonDisabled(!valid)
     })
-  }, [login])
-
+  }, [props.login])
+  
   const validateChange = e => {
     yup
       .reach(formSchema, e.target.name)
@@ -52,21 +47,22 @@ const Login = props => {
   const handleChange = e => {
     e.persist();
     validateChange(e);
-    setLogin({...login, [e.target.name]: e.target.value})
+    props.setLogin({...props.login, [e.target.name]: e.target.value})
   }
 
   const handleSubmit = e => {
     e.preventDefault()
 
-    axios.post('https://stark-sierra-74070.herokuapp.com/auth/login', login).then(res => {
+    axios.post('https://stark-sierra-74070.herokuapp.com/auth/login', props.login).then(res => {
       props.setCurrentUser(res)
+      console.log(res);
       axios.get('https://stark-sierra-74070.herokuapp.com/plants', {
         headers: {
           authorization: props.currentUser.data.token
         }
       }).then(res => {
         props.setPlants(res.data)
-        history.push(`plants/${login.username}`)
+        history.push(`plants/${props.login.username}`)
       })
     })
     .catch(err => {
@@ -81,11 +77,11 @@ const Login = props => {
       <LightTitle>Log into your account</LightTitle>
       <Form onSubmit={handleSubmit}>
         <Label htmlFor='username'>Username</Label>
-        <Input id='username' type='text' name='username' value={login.username} onChange={handleChange} />
+        <Input id='username' type='text' name='username' value={props.login.username} onChange={handleChange} />
         {errors.username.length > 0 ? (<Error>{errors.username}</Error>) : null}
 
         <Label htmlFor='password'>Password</Label>
-        <Input id='password' type='password' name='password' value={login.password} onChange={handleChange} />
+        <Input id='password' type='password' name='password' value={props.login.password} onChange={handleChange} />
         {errors.password.length > 0 ? (<Error>{errors.password}</Error>) : null}
         {errors.typo.length > 0 ? (<Error>{errors.typo}</Error>) : null}
         
