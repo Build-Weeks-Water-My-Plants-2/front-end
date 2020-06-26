@@ -59,10 +59,15 @@ const Login = props => {
     e.preventDefault()
 
     axios.post('https://stark-sierra-74070.herokuapp.com/auth/login', login).then(res => {
-      console.log(res)
       props.setCurrentUser(res)
-    }).then((res) => {
-      history.push(``)
+      axios.get('https://stark-sierra-74070.herokuapp.com/plants', {
+        headers: {
+          authorization: props.currentUser.data.token
+        }
+      }).then(res => {
+        props.setPlants(res.data)
+        history.push(`plants/${login.username}`)
+      })
     })
     .catch(err => {
       console.log(err)

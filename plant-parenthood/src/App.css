@@ -10,10 +10,8 @@
 }
 
 .App {
-  background-image: url('./assets/bg-leaf.png');
+  background: url('./assets/bg-leaf.png') no-repeat center center fixed;
   min-height: 100vh;
   max-height: 100%;
-  width: 100vw;
-  background-repeat: no-repeat;
   background-size: cover;
 }

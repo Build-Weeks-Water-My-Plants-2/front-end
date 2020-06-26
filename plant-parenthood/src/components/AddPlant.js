@@ -4,6 +4,7 @@ import flower from '../assets/ls4OK8rINvc.png';
 import succulent from '../assets/tcgMBsW4zlU.png';
 import * as yup from 'yup';
 import {Container, ImgContainer, Active, Error, Input, Form, Label, Button, Title, LightTitle} from '../styles/forms';
+import axios from 'axios';
 
 const formSchema = yup.object().shape({
   species: yup.string(),
@@ -17,7 +18,9 @@ const AddPlant = props => {
     species: '',
     nickname: '',
     maintenance: '',
-    avatar_url: ''
+    avatar_url: '',
+    happiness: false,
+    user_id: props.currentUser.data.token,
   })
 
   const [buttonDisabled, setButtonDisabled] = useState(true)
@@ -26,7 +29,7 @@ const AddPlant = props => {
     species: '',
     nickname: '',
     maintenance: '',
-    avatar_url: ''
+    avatar_url: '',
   })
 
   useEffect(() => {
@@ -61,7 +64,22 @@ const AddPlant = props => {
   }
 
   const handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
+    axios.post('https://stark-sierra-74070.herokuapp.com/plants/', newPlant, {
+      headers: {
+        'Authorization': props.currentUser.data.token,
+      }
+    }).then(res => {
+      console.log(res);
+      axios.get('https://stark-sierra-74070.herokuapp.com/plants', {
+        headers: {
+          authorization: props.currentUser.data.token
+        }
+      }).then(res => {
+        props.setPlants(res.data)
+        
+      })
+    })
   }  
 
   return (

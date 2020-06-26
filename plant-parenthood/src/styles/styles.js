@@ -16,4 +16,16 @@ export const RightNav = styled.nav`
 export const LeftNav = styled.nav`
   margin-left: 3vw;
 `
+export const Cta = styled.button`
+  border: none;
+  color: #fff;
+  background: #235B2D;
+  padding: 20px;
+  border-radius: 5px;
+`
 
+export const List = styled.div`
+  width: 50vw;
+  display: flex;
+  flex-flow: column wrap;
+`
