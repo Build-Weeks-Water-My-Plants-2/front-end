@@ -92,7 +92,8 @@ const AddPlant = props => {
   return (
     <Container>
       <Title>Looking Good!</Title>
-      <LightTitle>Now, let's add your first plant</LightTitle>
+      {props.small ? (<LightTitle>Lets add another plant!</LightTitle>) : (<LightTitle>Now, let's add your first plant</LightTitle>)}
+      
       
       <Form onSubmit={handleSubmit}>
       <ImgContainer>
