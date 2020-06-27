@@ -1,9 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import AddPlant from './AddPlant';
-import {Cta, List, Container} from '../styles/styles'
+import {Cta, List, Container} from '../styles/styles';
 
 const Plants = props => {
+  
 
 
   console.log(props.currentUser);
@@ -13,13 +14,14 @@ const Plants = props => {
       <Container>
         <List>
           {props.plants.map(plant => (
-              <div>
+              <div key={plant.id}>
+                {console.log(plant)}
                 <img src={plant.avatar_url} alt='plants avatar'/>
                 <p>{plant.nickname}</p>
               </div>        
           ))}
         </List>
-        <AddPlant currentUser={props.currentUser} plants={props.plants} setPlants={props.setPlants} login={props.login} small='true' />
+        <AddPlant currentUser={props.currentUser} plants={props.plants} setPlants={props.setPlants} login={props.login} multi='true' />
       </Container>
     )
   }else {

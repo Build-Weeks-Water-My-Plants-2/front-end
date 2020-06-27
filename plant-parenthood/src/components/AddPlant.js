@@ -63,7 +63,6 @@ const AddPlant = props => {
     e.persist();
     validateChange(e);
     setNewPlant({...newPlant, [e.target.name]: e.target.value})
-    console.log(newPlant)
   }
 
   const handleSubmit = e => {
@@ -88,13 +87,13 @@ const AddPlant = props => {
   return (
     <Container>
       <Title>Looking Good!</Title>
-      <LightTitle>Now, let's add your first plant</LightTitle>
+      {props.multi ? (<LightTitle>Now, let's add another plant!</LightTitle>) : (<LightTitle>Now, let's add your first plant!</LightTitle>)}
       
       <Form onSubmit={handleSubmit}>
       <ImgContainer>
         <label htmlFor='radio1'>
           <input id='radio1' data-cy='1' type='radio' name='avatar_url' value={leafy} onChange={handleChange} />
-          <img src={leafy} alt="close up of a succulent" />
+          <img src={leafy} alt="big leaf plant" />
         </label>
         <label htmlFor='radio2'>
           <input id='radio2' data-cy='2' type='radio' name='avatar_url' value={flower} onChange={handleChange} />
