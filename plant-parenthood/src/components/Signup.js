@@ -77,6 +77,7 @@ const Signup = props => {
         axios.post('https://stark-sierra-74070.herokuapp.com/auth/login', newUser).then(res => {
           console.log(res)
           props.setCurrentUser(res)
+          props.setLogin(newUser)
           history.push('/addplant')
         })
       })

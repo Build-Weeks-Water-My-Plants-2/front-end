@@ -32,7 +32,7 @@ function App() {
           <AddPlant currentUser={currentUser} setPlants={setPlants} login={login} />
         </Route>
         <Route path='/' >
-          <Signup setCurrentUser={setCurrentUser} login={login} />
+          <Signup setCurrentUser={setCurrentUser} login={login} setLogin={setLogin} />
         </Route>
       </Switch>
     </div>

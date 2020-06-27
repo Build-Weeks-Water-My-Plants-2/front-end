@@ -68,6 +68,7 @@ const AddPlant = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log(props.login)
     axios.post('https://stark-sierra-74070.herokuapp.com/plants/', newPlant, {
       headers: {
         'Authorization': props.currentUser.data.token,
@@ -82,6 +83,9 @@ const AddPlant = props => {
         props.setPlants(res.data)
         history.push(`plants/${props.login.username}`)
       })
+    })
+    .catch(err => {
+      console.log(err)
     })
   }  
 
