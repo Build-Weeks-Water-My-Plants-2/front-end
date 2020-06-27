@@ -4,9 +4,6 @@ import AddPlant from './AddPlant';
 import {Cta, List, Container} from '../styles/styles';
 
 const Plants = props => {
-  
-
-
   console.log(props.currentUser);
   
   if(props.plants.length > 0) {
